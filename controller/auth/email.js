@@ -2,13 +2,10 @@ import transporter from "../../config/emailConfig.js";
 import User from "../../models/user.js";
 
 const forgetPassword_email = async (req, res) => {
-  console.log(req.body);
   try {
     const { email } = req.body;
-    console.log(email);
     if (email) {
       const user = await User.findOne({ email: email });
-      console.log(user);
       if (user !== null) {
         const secret = user._id + process.env.JWT_SECRET_KEY;
         const token = jwt.sign({ userId: user._id }, secret, {
@@ -34,7 +31,7 @@ const forgetPassword_email = async (req, res) => {
         .json({ status: "error", error: "please enter the email" });
     }
   } catch (err) {
-    res.status(404)({ error: err.message });
+    res.status(404).json({ error: err.message });
   }
 };
 export default forgetPassword_email;

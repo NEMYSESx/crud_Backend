@@ -1,6 +1,5 @@
 import express from "express";
 import dotenv from "dotenv";
-import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import helmet from "helmet";
 import morgan from "morgan";
@@ -22,9 +21,6 @@ app.use(express.json());
 app.use(helmet()); // When you call helmet(), it returns a function that configures and sets various HTTP headers to improve security.
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" })); //The Cross-Origin-Resource-Policy header is designed to control whether the browser should allow the web page to request the specified resource from a different origin. It's a security feature that helps prevent certain types of Cross-Site Request Forgery (CSRF) attacks.
 app.use(morgan("common")); //to see the logs
-app.use(bodyParser.json({ limit: "30mb", extended: "true" })); //The "extended" syntax refers to a way of extending the standard URL encoding(URL encoding is a way of representing certain characters in a URL by replacing them with a percent sign followed by two hexadecimal digits ex = person[name]=Alice&person[age]=30&city=New%20York) to support more complex data structures like objects and arrays in a JSON-like format.and limit is the amount of data that can be encoded
-//app.use(bodyParser.urlencoded({ limit: "30mb", extended: "true" }));
-//app.use(express.urlencoded({ limit: "30mb", extended: true }));
 app.use("/assets", express.static(path.join(__dirname, "public/assets")));
 
 const storage = multer.diskStorage({
